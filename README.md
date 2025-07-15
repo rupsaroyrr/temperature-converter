@@ -1,1 +1,111 @@
 # temperature-converter
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f0f4f8;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #007acc;
+      margin-bottom: 20px;
+    }
+
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-size: 1em;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    button {
+      background: #007acc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #005fa3;
+    }
+
+    .result {
+      margin-top: 20px;
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #007acc;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Temperature Converter</h1>
+
+    <input type="number" id="temperature" placeholder="Enter temperature" />
+
+    <select id="unit">
+      <option value="C">Celsius (°C)</option>
+      <option value="F">Fahrenheit (°F)</option>
+      <option value="K">Kelvin (K)</option>
+    </select>
+
+    <button onclick="convertTemperature()">Convert</button>
+
+    <div class="result" id="result">--</div>
+  </div>
+
+  <script>
+    function convertTemperature() {
+      const temp = parseFloat(document.getElementById('temperature').value);
+      const unit = document.getElementById('unit').value;
+      const resultEl = document.getElementById('result');
+
+      if (isNaN(temp)) {
+        resultEl.textContent = "Please enter a valid number.";
+        return;
+      }
+
+      let converted = '';
+      switch (unit) {
+        case 'C':
+          converted = `Fahrenheit: ${(temp * 9/5 + 32).toFixed(2)} °F | Kelvin: ${(temp + 273.15).toFixed(2)} K`;
+          break;
+        case 'F':
+          converted = `Celsius: ${((temp - 32) * 5/9).toFixed(2)} °C | Kelvin: ${(((temp - 32) * 5/9) + 273.15).toFixed(2)} K`;
+          break;
+        case 'K':
+          converted = `Celsius: ${(temp - 273.15).toFixed(2)} °C | Fahrenheit: ${((temp - 273.15) * 9/5 + 32).toFixed(2)} °F`;
+          break;
+      }
+
+      resultEl.textContent = converted;
+    }
+  </script>
+
+</body>
+</html>
